@@ -23,6 +23,30 @@ app.post("/api/users",async (req,res)=>{
     return res.json(user)
 })
 
+app.post("/api/post",async (req,res)=>{
+    const {title,content} = req.body;
+
+    //do validation
+    const post = await prisma.post.create({
+        data:{
+            title,
+            content,
+            authorId:1 //todo: get this from auth context
+        }
+    })
+    return res.json(post)
+})
+
+app.get("/api/post",async (req,res)=>{
+    //do validation
+    const post = await prisma.post.findMany({
+       
+    })
+    return res.json(post)
+})
+
+
+
 
 app.listen(4600, ()=>{
     console.log(`Serving on port: 4600`);
